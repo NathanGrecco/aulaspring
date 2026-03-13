@@ -6,4 +6,6 @@ public interface EntityService<T> {
 
     void save(T entity);
     List<T> buscarTodos();
+    void delete(Long id);
+    void update(T entity);
 }
