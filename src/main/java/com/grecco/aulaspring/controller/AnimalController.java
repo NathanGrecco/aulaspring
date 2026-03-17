@@ -16,9 +16,9 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    @PostMapping
-    public void salvarAnimal(@RequestBody Animal animal) {
-        animalService.save(animal);
+    @PostMapping("/{tutorId}")
+    public void salvarAnimal(@RequestBody Animal animal, @PathVariable Long tutorId) {
+        animalService.salvarComIdTutor(animal, tutorId);
     }
 
     @GetMapping

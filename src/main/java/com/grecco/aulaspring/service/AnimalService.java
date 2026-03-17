@@ -1,22 +1,34 @@
 package com.grecco.aulaspring.service;
 
 import com.grecco.aulaspring.model.Animal;
+import com.grecco.aulaspring.model.Tutor;
 import com.grecco.aulaspring.repository.AnimalRepository;
+import com.grecco.aulaspring.repository.TutorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalService implements EntityService<Animal> {
 
     private final AnimalRepository animalRepository;
+    private final TutorRepository tutorRepository;
 
-    public AnimalService(AnimalRepository animalRepository) {
+    public AnimalService(AnimalRepository animalRepository,
+                         TutorRepository tutorRepository) {
         this.animalRepository = animalRepository;
+        this.tutorRepository = tutorRepository;
+    }
+
+    public void salvarComIdTutor(Animal entity, Long tutorId) {
+        Optional<Tutor> tutorOptional = tutorRepository.findById(tutorId);
+        tutorOptional.ifPresent(entity::setTutor);
+        save(entity);
     }
 
     @Override
-    public void save(Animal entity) {
+    private void save(Animal entity) {
         validaAnimal(entity);
         animalRepository.save(entity);
     }
