@@ -15,20 +15,13 @@ public class AnimalService implements EntityService<Animal> {
     private final AnimalRepository animalRepository;
     private final TutorRepository tutorRepository;
 
-    public AnimalService(AnimalRepository animalRepository,
-                         TutorRepository tutorRepository) {
+    public AnimalService(AnimalRepository animalRepository, TutorRepository tutorRepository) {
         this.animalRepository = animalRepository;
         this.tutorRepository = tutorRepository;
     }
 
-    public void salvarComIdTutor(Animal entity, Long tutorId) {
-        Optional<Tutor> tutorOptional = tutorRepository.findById(tutorId);
-        tutorOptional.ifPresent(entity::setTutor);
-        save(entity);
-    }
-
     @Override
-    private void save(Animal entity) {
+    public void save(Animal entity) {
         validaAnimal(entity);
         animalRepository.save(entity);
     }
@@ -50,7 +43,6 @@ public class AnimalService implements EntityService<Animal> {
 
     @Override
     public void update(Animal entity) {
-        validaAnimal(entity);
         animalRepository.save(entity);
     }
 

@@ -5,6 +5,7 @@ import com.grecco.aulaspring.repository.TutorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TutorService implements EntityService<Tutor> {
@@ -40,6 +41,14 @@ public class TutorService implements EntityService<Tutor> {
     public void update(Tutor entity) {
         validaTutor(entity);
         tutorRepository.save(entity);
+    }
+
+    public Tutor buscarTutorPorId(Long id) {
+        Optional<Tutor> tutorOptional = tutorRepository.findById(id);
+        if (tutorOptional.isPresent()) {
+            return tutorOptional.get();
+        }
+        throw new RuntimeException("Nenhum tutor encontrado");
     }
 
     private void validaTutor(Tutor entity) {

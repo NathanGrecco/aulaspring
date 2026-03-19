@@ -16,7 +16,7 @@ public class Animal {
     private Long id;
     private String nome;
     private Integer idade;
-    private Especie especie;
+    private String especie;
 
     @ManyToOne
     private Tutor tutor;
